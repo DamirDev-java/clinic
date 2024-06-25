@@ -1,0 +1,13 @@
+<html lang="en"
+    xmlns:th="http://thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+<form th:action="@{'/appointment/save/' + ${serviceId} + '/' + ${doctorId}}" method="post">
+        <label for="appointmentDate">Выберите дату приема:</label>
+        <input type="date"  name="appointmentDate" required>
+        <br><br>
+        <button type="submit">Записаться</button>
+    </form>
+    
+</body>
+</html>

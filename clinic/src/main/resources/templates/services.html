@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" 
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+    <body>
+ <section layout:fragment="body" id="hero">
+
+    <div class="container">
+        <h1>Список услуг стоматологической клиники</h1>
+        <div th:each="service : ${services}" class="service">
+        <h2 th:text="${service.serviceName}"></h2>
+         <!--  <p th:text="${service.description}"></p> -->
+            <p>Стоимость: <span th:text="${service.price}"></span> рублей</p>
+       <!-- <p>Время выполнения: <span th:text="${service.duration}"></span> минут</p> -->
+            <a th:href="@{'/doctor/service/' + ${service.id}}">Выбрать доктора</a>
+
+            <form th:if="${status != 'CHOOSE_SERVICE' and selectedDoctor != null}" th:action="@{'/appointment/new/' + ${service.id} + '/' + ${selectedDoctor.id}}" method="get">
+                <button type="submit">Записаться на прием</button>
+            </form>
+            
+            
+            
+            
+            
+            
+            
+        </div>
+    </div>
+ </section> 
+</body>
+
+</html>
