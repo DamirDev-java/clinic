@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  app:
+    image: 'maven-clinic'
+    build:
+      context: .
+    container_name: app
+    depends_on:
+      - db_pg_16
+      - minio
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db_pg_16:5432/clinic
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=bestuser
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - "8080:8080"
+
+  db_pg_16:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: clinic
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: bestuser
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data  # Монтируемый том для сохранения данных
+
+  minio:
+    image: minio/minio:latest
+    command: server --console-address ":9001" /data/
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: damir
+      MINIO_ROOT_PASSWORD: damir2005
+    volumes:
+      - minio-storage:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  nginx:
+    image: nginx:stable
+    ports:
+      - "80:80"
+    volumes:
+      - nginx:/data
+
+
+volumes:
+  pgdata:
+  minio-storage:
+  nginx:

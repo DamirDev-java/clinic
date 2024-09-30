@@ -1,0 +1,36 @@
+<html lang="en"
+    xmlns:th="http://thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+<body>
+
+  <section layout:fragment="body" class="page">
+                
+                 <div class="register-form">
+                    <form method="post" role="form" th:action="@{/service/save}" th:object="${service}">
+                        <div class="columns" data-aos="fade-left">
+                            <label>Username</label>
+                            <input
+                                    type="text"
+                                    class = "form"
+                                    placeholder="ServiceName"
+                                    th:field="*{serviceName}">
+                        </div>
+                       
+                          <div class="columns" data-aos="fade-left">
+                            <label>Price</label>
+                            <input
+                                    type="text"
+                                    class = "form"
+                                    placeholder="Price"
+                                    th:field="*{price}">
+                        </div>
+                        
+                        
+                       
+                      <button type="submit" class="btn btn-secondary">Register</button>
+                    </form>
+            </div>
+   </section>
+  </body>
+</html>

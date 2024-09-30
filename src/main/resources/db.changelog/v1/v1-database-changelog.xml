@@ -1,0 +1,139 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-1">
+        <createTable tableName="entities_roles">
+            <column name="entity_id" type="BIGINT"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="entities_roles_pkey"/>
+            </column>
+            <column name="role_id" type="BIGINT"/>
+            <column name="entity_type" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-2">
+        <createTable tableName="users_services">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_services_pkey"/>
+            </column>
+            <column name="service_id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
+            <column name="doctor_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-3">
+        <createTable tableName="appointment">
+            <column name="doctor_id" type="BIGINT"/>
+            <column autoIncrement="true" name="id" startWith="2" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="appointment_pkey"/>
+            </column>
+            <column name="patient_id" type="BIGINT"/>
+            <column name="service_id" type="BIGINT"/>
+            <column name="date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-4">
+        <createTable tableName="doctors_services">
+            <column name="doctor_id" type="BIGINT"/>
+            <column autoIncrement="true" name="id" startWith="2" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="doctors_services_pkey"/>
+            </column>
+            <column name="service_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-5">
+        <createTable tableName="roles">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="roles_pkey"/>
+            </column>
+            <column name="role" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-6">
+        <createTable tableName="services">
+            <column name="price" type="INTEGER"/>
+            <column autoIncrement="true" name="id" startWith="9" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="services_pkey"/>
+            </column>
+            <column name="service_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-7">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" startWith="21" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_pkey"/>
+            </column>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="username" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-8">
+        <createTable tableName="users_roles">
+            <column autoIncrement="true" name="id" startWith="17" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_roles_pkey"/>
+            </column>
+            <column name="role_id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-9">
+        <createSequence cacheSize="1" cycle="false"  incrementBy="50" maxValue="9223372036854775807" minValue="1" sequenceName="user_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-10">
+        <createTable tableName="doctors">
+            <column name="is_ready" type="BOOLEAN"/>
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="doctors_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="photo_url" type="VARCHAR(255)"/>
+            <column name="specialisation" type="VARCHAR(255)"/>
+            <column name="surname" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-11">
+        <createTable tableName="patients">
+            <column name="doctor_id" type="BIGINT"/>
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="patients_pkey"/>
+            </column>
+            <column name="diagnosis" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="photo_url" type="VARCHAR(255)"/>
+            <column name="surname" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-12">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="users_roles" constraintName="fk2o0jvgh89lemvvo17cbqvdxaa" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-13">
+        <addForeignKeyConstraint baseColumnNames="patient_id" baseTableName="appointment" constraintName="fk3mbue9w5cldlnxx3hm15t5sfo" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="patients" />
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-14">
+        <addForeignKeyConstraint baseColumnNames="doctor_id" baseTableName="appointment" constraintName="fk51y2ce12yp0g0hgsa39p2u9jq" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="doctors" />
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-15">
+        <addForeignKeyConstraint baseColumnNames="service_id" baseTableName="appointment" constraintName="fk5ixajc1q1xjyvjnqiasyjuqqx" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="services" />
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-16">
+        <addForeignKeyConstraint baseColumnNames="doctor_id" baseTableName="doctors_services" constraintName="fk8kqmtbnnhmv64j45m0kfaey2v" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="doctors" />
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-17">
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="doctors" constraintName="fkgisys6qm9qflq8w4npdhxafne" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" />
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-18">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="users_roles" constraintName="fkj6m8fwv7oqv74fcehir1a9ffy" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="roles" />
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-19">
+        <addForeignKeyConstraint baseColumnNames="service_id" baseTableName="doctors_services" constraintName="fklksljn03qabigxb1hjjuv3uts" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="services" />
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-20">
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="patients" constraintName="fkn8xphvlp05nd3ydg0p1rbdaom" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" />
+    </changeSet>
+    <changeSet author="Yury.Kildeev (generated)" id="1722546396070-21">
+        <addForeignKeyConstraint baseColumnNames="doctor_id" baseTableName="patients" constraintName="fkperqpk72jxd90l8yq7qf5fsx0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="doctors" />
+    </changeSet>
+</databaseChangeLog>

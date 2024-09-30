@@ -1,0 +1,21 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/clinic
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/clinic
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            client-id: springsecurity
+            client-secret: 1Nh0EYLizdiMhM7Q8fzSACaNb1Ipw1Bm
+            scope: openid
+
+
+
+server:
+  port: 8081
